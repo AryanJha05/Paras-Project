@@ -6,14 +6,16 @@
 }
 
 :root {
-    /* Grey-White Color Palette */
-    --primary-grey: #4A5568;
-    --dark-grey: #2D3748;
-    --light-grey: #A0AEC0;
-    --cream: #F7FAFC;
-    --warm-white: #FFFFFF;
-    --medium-grey: #718096;
-    --accent-blue: #3182CE;
+    /* White-Gray Professional Interior Design Palette */
+    --primary-white: #FFFFFF;
+    --warm-white: #FAFAFA;
+    --light-gray: #F5F5F5;
+    --medium-gray: #E5E5E5;
+    --text-gray: #6B7280;
+    --dark-gray: #374151;
+    --charcoal: #1F2937;
+    --accent-gray: #9CA3AF;
+    --border-gray: #D1D5DB;
     
     /* Typography */
     --font-primary: 'Merriweather', serif;
@@ -24,9 +26,9 @@
     --container-padding: 0 20px;
     
     /* Shadows */
-    --shadow-light: 0 2px 10px rgba(74, 85, 104, 0.1);
-    --shadow-medium: 0 4px 20px rgba(74, 85, 104, 0.15);
-    --shadow-dark: 0 8px 30px rgba(74, 85, 104, 0.2);
+    --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-dark: 0 10px 25px rgba(0, 0, 0, 0.15);
     
     /* Transitions */
     --transition: all 0.3s ease;
@@ -35,8 +37,8 @@
 body {
     font-family: var(--font-secondary);
     line-height: 1.6;
-    color: var(--dark-grey);
-    background-color: var(--warm-white);
+    color: var(--dark-gray);
+    background-color: var(--primary-white);
 }
 
 .container {
@@ -54,8 +56,8 @@ body::before {
     width: 100%;
     height: 100%;
     background: 
-        linear-gradient(45deg, transparent 25%, rgba(74, 85, 104, 0.02) 25%, rgba(74, 85, 104, 0.02) 50%, transparent 50%),
-        linear-gradient(-45deg, transparent 25%, rgba(74, 85, 104, 0.02) 25%, rgba(74, 85, 104, 0.02) 50%, transparent 50%);
+        linear-gradient(45deg, transparent 25%, rgba(229, 229, 229, 0.03) 25%, rgba(229, 229, 229, 0.03) 50%, transparent 50%),
+        linear-gradient(-45deg, transparent 25%, rgba(229, 229, 229, 0.03) 25%, rgba(229, 229, 229, 0.03) 50%, transparent 50%);
     background-size: 60px 60px;
     z-index: -1;
     pointer-events: none;
@@ -65,7 +67,7 @@ body::before {
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-primary);
     font-weight: 700;
-    color: var(--dark-grey);
+    color: var(--charcoal);
     margin-bottom: 1rem;
 }
 
@@ -76,7 +78,7 @@ h4 { font-size: 1.5rem; }
 
 p {
     margin-bottom: 1rem;
-    color: var(--medium-grey);
+    color: var(--text-gray);
 }
 
 /* Buttons */
@@ -95,7 +97,7 @@ p {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary-grey), var(--dark-grey));
+    background: linear-gradient(135deg, var(--dark-gray), var(--charcoal));
     color: white;
     box-shadow: var(--shadow-medium);
 }
@@ -103,17 +105,17 @@ p {
 .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-dark);
-    background: linear-gradient(135deg, var(--dark-grey), var(--primary-grey));
+    background: linear-gradient(135deg, var(--charcoal), var(--dark-gray));
 }
 
 .btn-secondary {
     background: transparent;
-    color: var(--primary-grey);
-    border: 2px solid var(--primary-grey);
+    color: var(--dark-gray);
+    border: 2px solid var(--dark-gray);
 }
 
 .btn-secondary:hover {
-    background: var(--primary-grey);
+    background: var(--dark-gray);
     color: white;
     transform: translateY(-2px);
 }
@@ -123,16 +125,17 @@ p {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(245, 230, 211, 0.95);
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     z-index: 1000;
     padding: 1rem 0;
     transition: var(--transition);
     box-shadow: var(--shadow-light);
+    border-bottom: 1px solid var(--border-gray);
 }
 
 .navbar.scrolled {
-    background: rgba(245, 230, 211, 0.98);
+    background: rgba(255, 255, 255, 0.98);
     box-shadow: var(--shadow-medium);
 }
 
@@ -147,13 +150,13 @@ p {
 
 .nav-logo h2 {
     font-family: var(--font-primary);
-    color: var(--primary-grey);
+    color: var(--charcoal);
     margin: 0;
     font-size: 1.8rem;
 }
 
 .nav-logo span {
-    color: var(--medium-grey);
+    color: var(--text-gray);
     font-size: 0.9rem;
     font-style: italic;
 }
@@ -166,7 +169,7 @@ p {
 
 .nav-link {
     text-decoration: none;
-    color: var(--dark-grey);
+    color: var(--text-gray);
     font-weight: 500;
     transition: var(--transition);
     position: relative;
@@ -179,7 +182,7 @@ p {
     left: 0;
     width: 0;
     height: 2px;
-    background: var(--primary-grey);
+    background: var(--charcoal);
     transition: var(--transition);
 }
 
@@ -190,7 +193,7 @@ p {
 
 .nav-link:hover,
 .nav-link.active {
-    color: var(--primary-grey);
+    color: var(--charcoal);
 }
 
 /* Hamburger Menu */
@@ -203,7 +206,7 @@ p {
 .hamburger .bar {
     width: 25px;
     height: 3px;
-    background: var(--primary-grey);
+    background: var(--text-gray);
     margin: 3px 0;
     transition: var(--transition);
 }
@@ -215,7 +218,7 @@ p {
     align-items: center;
     justify-content: center;
     position: relative;
-    background: linear-gradient(135deg, var(--cream) 0%, var(--warm-white) 100%);
+    background: linear-gradient(135deg, var(--warm-white) 0%, var(--light-gray) 100%);
     padding-top: 100px;
 }
 
@@ -232,7 +235,7 @@ p {
 .hero-text h1 {
     font-size: 3.5rem;
     margin-bottom: 0.5rem;
-    background: linear-gradient(135deg, var(--primary-grey), var(--dark-grey));
+    background: linear-gradient(135deg, var(--charcoal), var(--dark-gray));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -241,14 +244,14 @@ p {
 .hero-text h2 {
     font-size: 1.8rem;
     margin-bottom: 1.5rem;
-    color: var(--medium-grey);
+    color: var(--text-gray);
     font-weight: 400;
 }
 
 .hero-text p {
     font-size: 1.2rem;
     margin-bottom: 2rem;
-    color: var(--medium-grey);
+    color: var(--text-gray);
 }
 
 .hero-buttons {
@@ -347,7 +350,7 @@ section {
 
 /* About Section */
 .about {
-    background: var(--cream);
+    background: var(--warm-white);
 }
 
 .about-content {
@@ -367,20 +370,20 @@ section {
 .stat {
     text-align: center;
     padding: 1.5rem;
-    background: white;
+    background: var(--primary-white);
     border-radius: 10px;
     box-shadow: var(--shadow-light);
-    border-top: 3px solid var(--primary-grey);
+    border-top: 3px solid var(--charcoal);
 }
 
 .stat h4 {
     font-size: 2rem;
-    color: var(--primary-grey);
+    color: var(--charcoal);
     margin-bottom: 0.5rem;
 }
 
 .stat p {
-    color: var(--medium-grey);
+    color: var(--text-gray);
     font-weight: 500;
 }
 
@@ -439,13 +442,13 @@ section {
 }
 
 .service-card {
-    background: white;
+    background: var(--primary-white);
     padding: 2rem;
     border-radius: 15px;
     box-shadow: var(--shadow-light);
     text-align: center;
     transition: var(--transition);
-    border-top: 4px solid var(--primary-grey);
+    border-top: 4px solid var(--charcoal);
 }
 
 .service-card:hover {
@@ -456,7 +459,7 @@ section {
 .service-icon {
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, var(--primary-grey), var(--medium-grey));
+    background: linear-gradient(135deg, var(--charcoal), var(--dark-gray));
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -471,12 +474,12 @@ section {
 
 .service-card h3 {
     margin-bottom: 1rem;
-    color: var(--dark-grey);
+    color: var(--charcoal);
 }
 
 /* Portfolio Section */
 .portfolio {
-    background: var(--cream);
+    background: var(--light-gray);
 }
 
 .portfolio-filter {
@@ -489,9 +492,9 @@ section {
 
 .filter-btn {
     padding: 0.8rem 1.5rem;
-    background: white;
-    border: 2px solid var(--primary-grey);
-    color: var(--primary-grey);
+    background: var(--primary-white);
+    border: 2px solid var(--charcoal);
+    color: var(--charcoal);
     border-radius: 25px;
     cursor: pointer;
     transition: var(--transition);
@@ -500,7 +503,7 @@ section {
 
 .filter-btn.active,
 .filter-btn:hover {
-    background: var(--primary-grey);
+    background: var(--charcoal);
     color: white;
 }
 
@@ -511,7 +514,7 @@ section {
 }
 
 .portfolio-item {
-    background: white;
+    background: var(--primary-white);
     border-radius: 15px;
     overflow: hidden;
     box-shadow: var(--shadow-light);
@@ -575,27 +578,27 @@ section {
 
 .contact-item i {
     font-size: 1.5rem;
-    color: var(--primary-grey);
+    color: var(--charcoal);
     margin-top: 0.25rem;
 }
 
 .contact-item h4 {
     margin-bottom: 0.25rem;
-    color: var(--dark-grey);
+    color: var(--charcoal);
 }
 
 .contact-item p {
-    color: var(--medium-grey);
+    color: var(--text-gray);
     margin: 0;
 }
 
 /* Form Styles */
 .contact-form {
-    background: white;
+    background: var(--primary-white);
     padding: 2rem;
     border-radius: 15px;
     box-shadow: var(--shadow-medium);
-    border-top: 4px solid var(--primary-grey);
+    border-top: 4px solid var(--charcoal);
 }
 
 .form-group {
@@ -607,7 +610,7 @@ section {
 .form-group textarea {
     width: 100%;
     padding: 1rem;
-    border: 2px solid var(--light-grey);
+    border: 2px solid var(--border-gray);
     border-radius: 8px;
     font-family: var(--font-secondary);
     font-size: 1rem;
@@ -619,8 +622,8 @@ section {
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: var(--primary-grey);
-    box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+    border-color: var(--charcoal);
+    box-shadow: 0 0 0 3px rgba(55, 65, 81, 0.1);
 }
 
 .form-group textarea {
@@ -630,7 +633,7 @@ section {
 
 /* Footer */
 .footer {
-    background: var(--dark-grey);
+    background: var(--charcoal);
     color: white;
     padding: 3rem 0 1rem;
 }
@@ -644,7 +647,7 @@ section {
 
 .footer-section h3,
 .footer-section h4 {
-    color: var(--accent-blue);
+    color: var(--light-gray);
     margin-bottom: 1rem;
 }
 
@@ -668,7 +671,7 @@ section {
 }
 
 .footer-section a:hover {
-    color: var(--accent-blue);
+    color: var(--light-gray);
 }
 
 .social-links {
@@ -680,7 +683,7 @@ section {
 .social-links a {
     width: 40px;
     height: 40px;
-    background: var(--primary-grey);
+    background: var(--dark-gray);
     border-radius: 50%;
     display: flex;
     align-items: center;
