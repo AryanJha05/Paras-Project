@@ -1,10 +1,14 @@
-// Mobile Menu Toggle
+// Mobile Menu Toggle - Enhanced for Responsiveness
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('nav-menu');
+const navbar = document.getElementById('navbar');
 
 hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
     navMenu.classList.toggle('active');
+    
+    // Prevent body scroll when mobile menu is open
+    document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
 });
 
 // Close mobile menu when clicking on a link
@@ -12,12 +16,30 @@ document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {
         hamburger.classList.remove('active');
         navMenu.classList.remove('active');
+        document.body.style.overflow = '';
     });
 });
 
-// Navbar Scroll Effect
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (!navbar.contains(e.target) && navMenu.classList.contains('active')) {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
+// Close mobile menu on window resize (if transitioning to desktop)
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 992) {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
+// Enhanced Navbar Scroll Effect
 window.addEventListener('scroll', () => {
-    const navbar = document.getElementById('navbar');
     if (window.scrollY > 50) {
         navbar.classList.add('scrolled');
     } else {
@@ -49,7 +71,7 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// Portfolio Filter
+// Portfolio Filter - Enhanced for Mobile
 const filterButtons = document.querySelectorAll('.filter-btn');
 const portfolioItems = document.querySelectorAll('.portfolio-item');
 
@@ -77,6 +99,12 @@ filterButtons.forEach(button => {
                 }, 300);
             }
         });
+        
+        // Scroll to portfolio grid on mobile after filter selection
+        if (window.innerWidth <= 768) {
+            const portfolioGrid = document.querySelector('.portfolio-grid');
+            portfolioGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     });
 });
 
@@ -212,7 +240,7 @@ notificationStyles.textContent = `
 `;
 document.head.appendChild(notificationStyles);
 
-// Smooth Scrolling for anchor links
+// Enhanced Smooth Scrolling for anchor links - Mobile Optimized
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -220,7 +248,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         const targetElement = document.querySelector(targetId);
         
         if (targetElement) {
-            const headerOffset = 80;
+            // Adjust header offset based on screen size
+            const headerOffset = window.innerWidth <= 768 ? 70 : 80;
             const elementPosition = targetElement.offsetTop;
             const offsetPosition = elementPosition - headerOffset;
             
@@ -228,14 +257,21 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 top: offsetPosition,
                 behavior: 'smooth'
             });
+            
+            // Close mobile menu if open
+            if (navMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
         }
     });
 });
 
-// Animate on Scroll
+// Enhanced Animate on Scroll - Responsive
 const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: window.innerWidth <= 768 ? 0.05 : 0.1, // Lower threshold for mobile
+    rootMargin: window.innerWidth <= 768 ? '0px 0px -20px 0px' : '0px 0px -50px 0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
@@ -248,7 +284,7 @@ const observer = new IntersectionObserver((entries) => {
 
 // Observe elements for animation
 document.addEventListener('DOMContentLoaded', () => {
-    const elementsToAnimate = document.querySelectorAll('.service-card, .portfolio-item, .testimonial, .about-stats .stat');
+    const elementsToAnimate = document.querySelectorAll('.service-card, .portfolio-item, .stat, .contact-item');
     elementsToAnimate.forEach(element => {
         element.classList.add('loading');
         observer.observe(element);
@@ -367,3 +403,143 @@ function addEntranceAnimations() {
 document.addEventListener('DOMContentLoaded', addEntranceAnimations);
 
 console.log('Arun Suthar Carpentry Website Loaded Successfully! 🔨🪚');
+
+// Additional Mobile Optimizations
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // Optimize touch events for mobile
+    if ('ontouchstart' in window) {
+        document.body.classList.add('touch-device');
+        
+        // Add touch feedback for buttons
+        const buttons = document.querySelectorAll('.btn, .filter-btn');
+        buttons.forEach(button => {
+            button.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.95)';
+            });
+            
+            button.addEventListener('touchend', function() {
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+    }
+    
+    // Lazy load images when they're added
+    const lazyImages = document.querySelectorAll('img[data-src]');
+    if (lazyImages.length > 0) {
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.remove('lazy');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+        
+        lazyImages.forEach(img => imageObserver.observe(img));
+    }
+    
+    // Responsive image placeholder sizing
+    function adjustPlaceholders() {
+        const placeholders = document.querySelectorAll('.image-placeholder, .hero-placeholder');
+        placeholders.forEach(placeholder => {
+            if (window.innerWidth <= 576) {
+                placeholder.style.minHeight = '200px';
+            } else if (window.innerWidth <= 768) {
+                placeholder.style.minHeight = '250px';
+            } else {
+                placeholder.style.minHeight = '';
+            }
+        });
+    }
+    
+    // Call on load and resize
+    adjustPlaceholders();
+    window.addEventListener('resize', debounce(adjustPlaceholders, 250));
+    
+    // Performance optimization - debounce resize events
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+    
+    // Add swipe support for portfolio filters on mobile
+    if (window.innerWidth <= 768) {
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        const portfolioFilter = document.querySelector('.portfolio-filter');
+        if (portfolioFilter) {
+            portfolioFilter.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            
+            portfolioFilter.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+            
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const diff = touchStartX - touchEndX;
+                
+                if (Math.abs(diff) > swipeThreshold) {
+                    const activeFilter = document.querySelector('.filter-btn.active');
+                    const filters = Array.from(document.querySelectorAll('.filter-btn'));
+                    const currentIndex = filters.indexOf(activeFilter);
+                    
+                    let nextIndex;
+                    if (diff > 0 && currentIndex < filters.length - 1) {
+                        // Swipe left - next filter
+                        nextIndex = currentIndex + 1;
+                    } else if (diff < 0 && currentIndex > 0) {
+                        // Swipe right - previous filter
+                        nextIndex = currentIndex - 1;
+                    }
+                    
+                    if (nextIndex !== undefined) {
+                        filters[nextIndex].click();
+                    }
+                }
+            }
+        }
+    }
+    
+    // Viewport height fix for mobile browsers
+    function setViewportHeight() {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    
+    setViewportHeight();
+    window.addEventListener('resize', debounce(setViewportHeight, 250));
+    
+    // Optimize form inputs for mobile
+    const inputs = document.querySelectorAll('input, textarea, select');
+    inputs.forEach(input => {
+        // Prevent zoom on focus for iOS
+        if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+            input.style.fontSize = '16px';
+        }
+        
+        // Add better mobile input handling
+        input.addEventListener('focus', function() {
+            if (window.innerWidth <= 768) {
+                setTimeout(() => {
+                    this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
+            }
+        });
+    });
+});
